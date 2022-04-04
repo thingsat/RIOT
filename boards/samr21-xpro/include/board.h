@@ -105,6 +105,52 @@ enum {
 #endif
 /** @} */
 
+
+/**
+ * @name    Set default configuration parameters for the sdcard_spi driver
+ * @{
+ */
+#ifndef SDCARD_SPI_PARAM_SPI
+#define SDCARD_SPI_PARAM_SPI         (SPI_DEV(1))
+#endif
+#ifndef SDCARD_SPI_PARAM_CS
+#define SDCARD_SPI_PARAM_CS          (GPIO_PIN(PB,3))
+#endif
+#ifndef SDCARD_SPI_PARAM_CLK
+#define SDCARD_SPI_PARAM_CLK         (GPIO_PIN(PB,23))
+#endif
+#ifndef SDCARD_SPI_PARAM_MOSI
+#define SDCARD_SPI_PARAM_MOSI        (GPIO_PIN(PB,22))
+#endif
+#ifndef SDCARD_SPI_PARAM_MISO
+#define SDCARD_SPI_PARAM_MISO        (GPIO_PIN(PB,2))
+#endif
+#ifndef SDCARD_SPI_PARAM_POWER
+#define SDCARD_SPI_PARAM_POWER       (GPIO_UNDEF)
+#endif
+#ifndef SDCARD_SPI_PARAM_POWER_AH
+#define SDCARD_SPI_PARAM_POWER_AH    (true)
+#endif
+
+/**
+ * @name    Set default configuration parameters for the MCP2515
+ * @{
+ */
+#define MCP2515_PARAM_SPI SPI_DEV(1)
+#define MCP2515_PARAM_CS GPIO_PIN(PA, 14)
+#define MCP2515_PARAM_INT GPIO_PIN(PA, 15)
+
+#if defined(MODULE_MTD_SDCARD) || defined(DOXYGEN)
+#include "mtd_sdcard.h"
+/**
+ * @brief MTD device 0 (SD Card) definition. mtd0 is defined in board.c
+ * @{
+ */
+extern mtd_dev_t *mtd0;
+#define MTD_0 mtd0
+#endif
+/** @} */
+
 /**
  * @brief   Set antenna switch
  */
