@@ -7,10 +7,7 @@ For using the can stack on top of socketCAN, available for linux, you need:
 - install the 32bit version of libsocketcan:
 - install `can-utils` `sudo apt install can-utils`
 
-By default `native` will use the `libsocketcan` package to download and compile
-`libsocketcan` from source.
-
-Alternatively, you can compile from source:
+You can compile from source:
 
 ```shell
 wget http://www.pengutronix.de/software/libsocketcan/download/libsocketcan-0.0.10.tar.bz2
