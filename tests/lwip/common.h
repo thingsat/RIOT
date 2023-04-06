@@ -22,13 +22,13 @@
 #include <stdint.h>
 #include <sys/types.h>
 
-/*
+
 #ifdef MODULE_LWIP_HTTPCLIENT
 #include "lwip/ip_addr.h"
 #define DEC     "0123456789"
 #include <stdio.h>
 #endif
-*/
+
 
 #include "kernel_defines.h"
 
