@@ -42,6 +42,9 @@ static const shell_command_t shell_commands[] = {
 #ifdef MODULE_SOCK_UDP
     { "udp", "Send UDP messages and listen for messages on UDP port", udp_cmd },
 #endif
+#ifdef MODULE_LWIP_HTTPCLIENT
+    { "http", "Send over TCP (GET, PUT, POST, DELETE) HTTP Request", http_cmd },
+#endif
     { NULL, NULL, NULL }
 };
 

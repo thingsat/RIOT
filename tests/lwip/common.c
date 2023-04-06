@@ -11,12 +11,13 @@
  *
  * @file
  * @author Martine Lenders <mlenders@inf.fu-berlin.de>
+ * @author  Aymeric Brochier <aymeric.brochier@univ-grenoble-alpes.fr>
  */
 
 #include <stdbool.h>
 
 #include "common.h"
-
+#define IPV4_PART 4
 size_t hex2ints(uint8_t *out, const char *in)
 {
     bool upper = true;
@@ -54,4 +55,19 @@ size_t hex2ints(uint8_t *out, const char *in)
     return out_size;
 }
 
+
+/* Assume the adress is ipv4 like X.Y.Z.T */
+uint8_t* split_adress(uint8_t *result, char *str_adress){
+
+   // Extract the first token
+   char * token = strtok(str_adress, ".");
+   uint8_t i = 0;
+   while( token != NULL ) {
+      result[i] = atoi(token);
+      token = strtok(NULL, ".");
+      i++;
+   }
+   return result;
+
+}
 /** @} */

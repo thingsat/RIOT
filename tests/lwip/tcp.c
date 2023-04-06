@@ -19,6 +19,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "common.h"
 #include "od.h"
@@ -175,6 +176,21 @@ static int tcp_send(char *data, unsigned int num, unsigned int delay)
             printf("Success: send %u byte over TCP to server\n", (unsigned)data_len);
         }
         ztimer_sleep(ZTIMER_USEC, delay);
+        /* print the answer */
+        /* we don't use timeouts so all errors should be related to a lost
+         * connection */
+        int res;
+        while ((res = sock_tcp_read(&client_sock, sock_inbuf, sizeof(sock_inbuf),
+                                    0)) >= 0) {
+            printf("Received TCP data from server\n");
+            if (res > 0) {
+                od_hex_dump(sock_inbuf, res, 0);
+            }
+            else {
+                puts("(nul)");
+            }
+        }
+
     }
     return 0;
 }

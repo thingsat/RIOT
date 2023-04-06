@@ -8,6 +8,10 @@ include $(RIOTBASE)/pkg/pkg.mk
 
 LWIP_MODULES         = lwip_api lwip_core lwip_ipv4 lwip_ipv6 \
                        lwip_netif lwip_netif_ppp lwip_polarssl
+## ADD LWIP_APPS
+LWIP_MODULES +=        lwip_httpclient lwip_altcp_tls
+LWIP_MODULES +=        lwip_mqtt
+
 LWIP_USEMODULE       = $(filter $(LWIP_MODULES),$(USEMODULE))
 LWIP_MODULE_MAKEFILE = $(RIOTBASE)/Makefile.base
 
@@ -47,3 +51,15 @@ lwip_netif_ppp:
 
 lwip_polarssl:
 	$(call make_module,$@,$(PKG_SOURCE_DIR)/src/netif/ppp/polarssl)
+
+## ADD LWIP_APPS
+lwip_httpclient:
+	mkdir -p $(PKG_SOURCE_DIR)/src/apps/httpclient
+	cp $(PKG_SOURCE_DIR)/src/apps/http/http_client.c $(PKG_SOURCE_DIR)/src/apps/httpclient
+	$(call make_module,$@,$(PKG_SOURCE_DIR)/src/apps/httpclient)
+
+lwip_altcp_tls:
+	$(call make_module,$@,$(PKG_SOURCE_DIR)/src/apps/altcp_tls)
+
+lwip_mqtt:
+	$(call make_module,$@,$(PKG_SOURCE_DIR)/src/apps/mqtt)

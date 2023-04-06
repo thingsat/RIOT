@@ -14,12 +14,21 @@
  * @brief   Definitions for tests/lwip/
  *
  * @author  Martine Lenders <mlenders@inf.fu-berlin.de>
+ * @author  Aymeric Brochier <aymeric.brochier@univ-grenoble-alpes.fr>
  */
 #ifndef COMMON_H
 #define COMMON_H
 
 #include <stdint.h>
 #include <sys/types.h>
+
+/*
+#ifdef MODULE_LWIP_HTTPCLIENT
+#include "lwip/ip_addr.h"
+#define DEC     "0123456789"
+#include <stdio.h>
+#endif
+*/
 
 #include "kernel_defines.h"
 
@@ -94,6 +103,30 @@ int tcp_cmd(int argc, char **argv);
  * @return  other on error
  */
 int udp_cmd(int argc, char **argv);
+#endif
+
+#ifdef MODULE_LWIP_HTTPCLIENT
+/**
+ * @brief   HTTP shell command
+ *
+ * @param[in] argc  number of arguments
+ * @param[in] argv  array of arguments
+ *
+ * @return  0 on success
+ * @return  other on error
+ */
+int http_cmd(int argc, char **argv);
+
+/**
+ * @brief   return IPV4 as array of 4 bytes from string
+ *
+ * @param[in] result array of 4 bytes
+ * @param[in] str_adress IPV4 string adress
+ *
+ * @return  result on success
+ * @return  NULL on error
+ */
+uint8_t* split_adress(uint8_t *result, char *str_adress);
 #endif
 
 #ifdef __cplusplus
