@@ -45,7 +45,6 @@ ip4_addr_t host;
 err_t get_http_cb(void *arg, struct tcp_pcb *tpcb, struct pbuf *p, err_t err){
 
     (void)arg;
-    (void)tpcb;
     (void)err;
 
 	for(uint16_t i = 0; i < p->len; i++){
@@ -59,7 +58,7 @@ err_t get_http_cb(void *arg, struct tcp_pcb *tpcb, struct pbuf *p, err_t err){
     printf("%d bytes treated\n",p->len);
     */
 
-    /*need to free the buff ! */
+    altcp_recved(tpcb, p->tot_len);
     pbuf_free(p);
 	return ERR_OK;
 }
