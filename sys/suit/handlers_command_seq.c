@@ -42,6 +42,9 @@
 #ifdef MODULE_SUIT_TRANSPORT_VFS
 #include "suit/transport/vfs.h"
 #endif
+#ifdef MODULE_SUIT_TRANSPORT_CUSTOM
+#include "suit/transport/custom.h"
+#endif
 #include "suit/transport/mock.h"
 
 #if defined(MODULE_PROGRESS_BAR)
@@ -345,7 +348,7 @@ static inline void _print_download_progress(suit_manifest_t *manifest,
 #endif
 }
 
-#if defined(MODULE_SUIT_TRANSPORT_COAP) || defined(MODULE_SUIT_TRANSPORT_VFS)
+#if defined(MODULE_SUIT_TRANSPORT_COAP) || defined(MODULE_SUIT_TRANSPORT_VFS) || defined(MODULE_SUIT_TRANSPORT_CUSTOM)
 static int _storage_helper(void *arg, size_t offset, uint8_t *buf, size_t len,
                            int more)
 {
@@ -453,6 +456,11 @@ static int _dtv_fetch(suit_manifest_t *manifest, int key,
 #ifdef MODULE_SUIT_TRANSPORT_VFS
     else if (strncmp(manifest->urlbuf, "file://", 7) == 0) {
         res = suit_transport_vfs_fetch(manifest, _storage_helper, manifest);
+    }
+#endif
+#ifdef MODULE_SUIT_TRANSPORT_CUSTOM
+    else if (strncmp(manifest->urlbuf, SUIT_TRANSPORT_CUSTOM_ROOTDIR, strlen(SUIT_TRANSPORT_CUSTOM_ROOTDIR)) == 0) {
+        res = suit_transport_custom_fetch(manifest, _storage_helper, manifest);
     }
 #endif
     else {

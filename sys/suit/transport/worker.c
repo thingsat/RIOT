@@ -43,6 +43,10 @@
 #ifdef MODULE_SUIT_TRANSPORT_VFS
 #include "vfs_util.h"
 #endif
+#ifdef MODULE_SUIT_TRANSPORT_CUSTOM
+#include "suit/transport/custom.h"
+#endif
+
 
 #ifdef MODULE_RIOTBOOT_SLOT
 #include "riotboot/slot.h"
@@ -100,6 +104,11 @@ int suit_handle_url(const char *url)
 #ifdef MODULE_SUIT_TRANSPORT_VFS
     else if (strncmp(url, "file://", 7) == 0) {
         size = vfs_file_to_buffer(&url[7], _manifest_buf, sizeof(_manifest_buf));
+    }
+#endif
+#ifdef MODULE_SUIT_TRANSPORT_CUSTOM
+    else if (strncmp(url, SUIT_TRANSPORT_CUSTOM_ROOTDIR, strlen(SUIT_TRANSPORT_CUSTOM_ROOTDIR)) == 0) {
+    	size = suit_transport_custom_handle_url(url, _manifest_buf, sizeof(_manifest_buf));
     }
 #endif
     else {
